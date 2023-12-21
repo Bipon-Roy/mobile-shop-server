@@ -12,6 +12,14 @@ git clone https://github.com/Bipon-Roy/mobile-shop-server
 
 Now, open the <b>mobile-shop-server</b> folder in your <b>IDE (VS Code recommended)</b> and run the following commands on <b>terminal (Git Bash)</b>
 
+## Add Mongodb Username And Password
+
+-   Create a (dot) .env file
+-   Add DB_User= <your_database_username>
+-   Add DB_Pass= <your_database_user_password>
+
+## Run the following commands
+
 <b>Using NPM</b>
 
 ```bash
