@@ -26,11 +26,10 @@ async function run() {
     try {
         // await client.connect();
         const phonesCollection = client.db("mobileShopDb").collection("phones");
-
+        const cartCollection = client.db("shopDb").collection("cart");
         //All phones api including filtering functionality
         app.get("/phones", async (req, res) => {
             const queryObj = {};
-
             const minPrice = parseFloat(req.query.minPrice);
             const maxPrice = parseFloat(req.query.maxPrice);
             const OS = req.query.OS;
@@ -81,6 +80,34 @@ async function run() {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
             const result = await phonesCollection.findOne(query);
+            res.send(result);
+        });
+
+        //get all data
+        app.get("/cart", async (req, res) => {
+            const result = await cartCollection.find().toArray();
+            res.send(result);
+        });
+
+        //api for adding product into cart
+        app.post("/cart", async (req, res) => {
+            const user = req.body;
+            const result = await cartCollection.insertOne(user);
+            res.send(result);
+        });
+
+        app.get("/cart/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await cartCollection.findOne(query);
+            res.send(result);
+        });
+        // api for delete product from cart
+
+        app.delete("/cart/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await cartCollection.deleteOne(query);
             res.send(result);
         });
 
